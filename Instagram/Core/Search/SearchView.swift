@@ -16,30 +16,38 @@ struct SearchView: View {
         NavigationView {
             ScrollView(showsIndicators: false) {
                 LazyVStack(spacing: 12) {
-                    ForEach(0 ... 15, id: \.self) { _ in
-                        HStack {
-                            Image("batman")
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 40, height: 40)
-                                .clipShape(Circle())
-                            
-                            VStack(alignment: .leading) {
-                                Text("Batman").fontWeight(.semibold)
-                                Text("Bruce Wayne")
+                    ForEach(User.MOCK_USERS) { user in
+                        NavigationLink {
+                            ProfileView(user: user)
+                        } label: {
+                            HStack {
+                                Image(user.profileImageUrl ?? "")
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 40, height: 40)
+                                    .clipShape(Circle())
+
+                                VStack(alignment: .leading) {
+                                    Text(user.userName)
+                                        .fontWeight(.semibold)
+
+                                    if let fullname = user.fullName {
+                                        Text(fullname)
+                                    }
+                                }
+                                .font(.footnote)
+
+                                Spacer()
                             }
-                            .font(.footnote)
-                            
-                            Spacer()
+                            .foregroundColor(.black)
+                            .padding(.horizontal)
                         }
-                        .padding(.horizontal)
+
                     }
                 }
                 .navigationSearchBar {
                     SearchBar(text: $searchText)
                         .placeholder("Search ...")
-                        
-                        
                 }
             }
             .navigationTitle("Explore")
