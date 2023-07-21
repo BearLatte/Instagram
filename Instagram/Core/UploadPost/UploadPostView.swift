@@ -12,13 +12,9 @@ struct UploadPostView: View {
     
     @State var caption = ""
     @State private var imagePickerPresented = false
-    @State private var selectedImage : UIImage = UIImage() {
-        didSet {
-            viewModel.selectedImage = selectedImage
-        }
-    }
     @State private var imageSourceType : UIImagePickerController.SourceType = .photoLibrary
     @State private var isAllowEditImage: Bool = false
+    @Binding var tabIndex : Int
     
     @StateObject var viewModel = UploadPostViewModel()
     
@@ -27,7 +23,9 @@ struct UploadPostView: View {
             // action tool bar
             HStack {
                 Button {
-                    print("cancel upload")
+                    caption = ""
+                    viewModel.postImage = nil
+                    tabIndex = 0
                 } label: {
                     Text("Cancel")
                 }
@@ -51,11 +49,16 @@ struct UploadPostView: View {
             
             // post image and caption
             HStack {
-                Image(uiImage: viewModel.selectedImage ?? UIImage())
-                    .resizable()
-                    .frame(width: 100, height: 100)
+                if let image = viewModel.postImage {
+                    image
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 100, height: 100)
+                        .clipped()
+                }
+                
                 if #available(iOS 16.0, *) {
-                    TextField("Enter your post caption", text: $caption, axis: .vertical)
+                    TextField("Enter your post caption...", text: $caption, axis: .vertical)
                         .multilineTextAlignment(.leading)
                 } else {
                     ZStack(alignment: .topLeading) {
@@ -80,14 +83,17 @@ struct UploadPostView: View {
         .onAppear{
             imagePickerPresented.toggle()
         }
+        /* 此代码只在 iOS16 及以上系统版本可用
+        .photosPicker(isPresented: $imagePickerPresented, selection: $viewModel.selectedPickerItem)
+         */
         .sheet(isPresented: $imagePickerPresented) {
-            ImagePickerView(isPresented: $imagePickerPresented, selectedImage: $selectedImage, sourceType: $imageSourceType, isAllowEditing: $isAllowEditImage)
+            ImagePickerView(isPresented: $imagePickerPresented, selectedImage: $viewModel.selectedImage, sourceType: $imageSourceType, isAllowEditing: $isAllowEditImage)
         }
     }
 }
 
 struct UploadPostView_Previews: PreviewProvider {
     static var previews: some View {
-        UploadPostView()
+        UploadPostView(tabIndex: .constant(0))
     }
 }

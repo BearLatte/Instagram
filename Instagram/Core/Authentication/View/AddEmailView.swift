@@ -1,5 +1,5 @@
 //
-//  CompleSignUpView.swift
+//  AddEmailView.swift
 //  Instagram
 //
 //  Created by Tim on 2023/7/20.
@@ -7,28 +7,32 @@
 
 import SwiftUI
 
-struct CompleSignUpView: View {
+struct AddEmailView: View {
     @Environment(\.presentationMode) var presentationMode : Binding<PresentationMode>
+    @EnvironmentObject var viewModel : RegistrationViewModel
     
     var body: some View {
         VStack(spacing: 12) {
-            Spacer()
-            
-            Text("Welcome to Instagram, Timothy.dowless")
+            Text("Add Your E-mail")
                 .font(.title2)
                 .fontWeight(.bold)
                 .padding(.top)
-                .multilineTextAlignment(.center)
             
-            Text("Click below to complete registration and start using Instagram")
+            Text("You'll use this E-mail to sign in to your account")
                 .font(.footnote)
+                .foregroundColor(.gray)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 24)
             
-            Button {
-                print("Complete Sign Up")
+            TextField("E-mail", text: $viewModel.email)
+                .autocapitalization(.none)
+                .modifier(IGTextFieldModifier())
+            
+            NavigationLink {
+                CreateUsernameView()
+                    .navigationBarBackButtonHidden()
             } label: {
-                Text("Complete Sign Up")
+                Text("Next")
                     .font(.subheadline)
                     .fontWeight(.semibold)
                     .frame(width: 360, height: 44)
@@ -52,8 +56,8 @@ struct CompleSignUpView: View {
     }
 }
 
-struct CompleSignUpView_Previews: PreviewProvider {
+struct AddEmailView_Previews: PreviewProvider {
     static var previews: some View {
-        CompleSignUpView()
+        AddEmailView()
     }
 }

@@ -1,5 +1,5 @@
 //
-//  CreatePasswordView.swift
+//  CompleteSignUpView.swift
 //  Instagram
 //
 //  Created by Tim on 2023/7/20.
@@ -7,34 +7,29 @@
 
 import SwiftUI
 
-struct CreatePasswordView: View {
-    
-    @State private var password = ""
+struct CompleteSignUpView: View {
     @Environment(\.presentationMode) var presentationMode : Binding<PresentationMode>
+    @EnvironmentObject var viewModel : RegistrationViewModel
     
     var body: some View {
         VStack(spacing: 12) {
-            Text("Create a Password")
+            Spacer()
+            
+            Text("Welcome to Instagram, \(viewModel.username)")
                 .font(.title2)
                 .fontWeight(.bold)
                 .padding(.top)
+                .multilineTextAlignment(.center)
             
-            Text("Your password must be at least 6 charcters in length")
+            Text("Click below to complete registration and start using Instagram")
                 .font(.footnote)
-                .foregroundColor(.gray)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 24)
             
-            SecureField("Password", text: $password)
-                .autocapitalization(.none)
-                .modifier(IGTextFieldModifier())
-                .padding(.top)
-            
-            NavigationLink {
-                CompleSignUpView()
-                    .navigationBarBackButtonHidden()
+            Button {
+                Task { try await viewModel.createUser() }
             } label: {
-                Text("Next")
+                Text("Complete Sign Up")
                     .font(.subheadline)
                     .fontWeight(.semibold)
                     .frame(width: 360, height: 44)
@@ -58,8 +53,8 @@ struct CreatePasswordView: View {
     }
 }
 
-struct CreatePasswordView_Previews: PreviewProvider {
+struct CompleteSignUpView_Previews: PreviewProvider {
     static var previews: some View {
-        CreatePasswordView()
+        CompleteSignUpView()
     }
 }

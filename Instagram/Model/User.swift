@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Firebase
 
 
 struct User : Identifiable, Codable, Hashable {
@@ -15,6 +16,14 @@ struct User : Identifiable, Codable, Hashable {
     var fullName : String?
     var bio : String?
     let email : String
+    
+    var isCurrentUser : Bool {
+        guard let currentUserUid = Auth.auth().currentUser?.uid else {
+            return false
+        }
+        
+        return id == currentUserUid
+    }
 }
 
 
@@ -22,7 +31,7 @@ extension User {
     static var MOCK_USERS : [User] = [
         .init(
             id: UUID().uuidString,
-            userName: "batman",
+            userName: "Bat-Man",
             profileImageUrl: "batman-2",
             fullName: "Bruce Wayne",
             bio: "Gotham's dark Knight",
@@ -30,7 +39,7 @@ extension User {
         ),
         .init(
             id: UUID().uuidString,
-            userName: "venom",
+            userName: "Venom",
             profileImageUrl: "venom-2",
             fullName: "Dddie Brook",
             bio: "Venom",
@@ -38,7 +47,7 @@ extension User {
         ),
         .init(
             id: UUID().uuidString,
-            userName: "ironman",
+            userName: "Iron-Man",
             profileImageUrl: "ironman-2",
             fullName: "Tony Stark",
             bio: "ironman",
@@ -46,7 +55,7 @@ extension User {
         ),
         .init(
             id: UUID().uuidString,
-            userName: "spider-man",
+            userName: "Spider-Man",
             profileImageUrl: "spider-man-2",
             fullName: "Peter Benjamin Parker",
             bio: "spider-man",
@@ -54,7 +63,7 @@ extension User {
         ),
         .init(
             id: UUID().uuidString,
-            userName: "hawkeye",
+            userName: "Hawkeye",
             profileImageUrl: "hawkeye-2",
             fullName: "Clint Barton",
             bio: "hawkeye",
@@ -62,7 +71,7 @@ extension User {
         ),
         .init(
             id: UUID().uuidString,
-            userName: "doctor-stranger",
+            userName: "Doctor-Stranger",
             profileImageUrl: "doctor-stranger-2",
             fullName: "Stephen Vincent Strange",
             bio: "doctor-stranger",
@@ -70,7 +79,7 @@ extension User {
         ),
         .init(
             id: UUID().uuidString,
-            userName: "black-panther",
+            userName: "Black-Panther",
             profileImageUrl: "black-panther-2",
             fullName: "T'Challa",
             bio: "Wakanda Forever",
@@ -78,7 +87,7 @@ extension User {
         ),
         .init(
             id: UUID().uuidString,
-            userName: "ant-man",
+            userName: "Ant-Man",
             profileImageUrl: "ant-man-2",
             fullName: "Scott Lang",
             bio: "ant-man",

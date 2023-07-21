@@ -9,9 +9,10 @@ import SwiftUI
 
 struct ImagePickerView:UIViewControllerRepresentable{
     @Binding var isPresented:Bool
-    @Binding var selectedImage:UIImage
+    @Binding var selectedImage:UIImage?
     @Binding var sourceType: UIImagePickerController.SourceType
     @Binding var isAllowEditing : Bool
+    
     func makeCoordinator() -> Coordinator {
         return Coordinator(parent: self)
     }
@@ -21,6 +22,7 @@ struct ImagePickerView:UIViewControllerRepresentable{
         init(parent:ImagePickerView) {
             self.parent = parent
         }
+        
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
             if let selectedImage = info[.originalImage] as? UIImage{
                 self.parent.selectedImage = selectedImage
