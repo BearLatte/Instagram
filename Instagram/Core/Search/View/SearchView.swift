@@ -23,18 +23,13 @@ struct SearchView: View {
                             ProfileView(user: user)
                         } label: {
                             HStack {
-                                Image(systemName: "person.circle")
-                                    .resizable()
-                                    .scaledToFill()
-                                    .foregroundColor(.gray)
-                                    .frame(width: 40, height: 40)
-                                    .clipShape(Circle())
+                                CircularProfileImageView(user: user, size: .xSmall)
 
                                 VStack(alignment: .leading) {
                                     Text(user.userName)
                                         .fontWeight(.semibold)
 
-                                    if let fullname = user.fullName {
+                                    if let fullname = user.fullname {
                                         Text(fullname)
                                     }
                                 }

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Firebase
 
 struct Post : Identifiable, Hashable, Codable {
     let id : String
@@ -13,7 +14,7 @@ struct Post : Identifiable, Hashable, Codable {
     let caption : String
     var likes : Int
     let imageUrl : String
-    let timestamp : Date
+    let timestamp : Timestamp
     var user : User?
 }
 
@@ -26,7 +27,7 @@ extension Post {
             caption: "This is some test caption for now",
             likes: Int(arc4random()) % 100000,
             imageUrl: "batman",
-            timestamp: Date(),
+            timestamp: Timestamp(),
             user: User.MOCK_USERS[0]
         ),
         .init(
@@ -35,7 +36,7 @@ extension Post {
             caption: "I’m Venom and you are mine.",
             likes: Int(arc4random()) % 100000,
             imageUrl: "venom-1",
-            timestamp: Date(),
+            timestamp: Timestamp(),
             user: User.MOCK_USERS[1]
         ),
         .init(
@@ -44,7 +45,7 @@ extension Post {
             caption: "I am Iron-Man",
             likes: Int(arc4random()) % 100000,
             imageUrl: "ironman-1",
-            timestamp: Date(),
+            timestamp: Timestamp(),
             user: User.MOCK_USERS[2]
         ),
         .init(
@@ -53,7 +54,7 @@ extension Post {
             caption: "Your friendly Neighborhood!",
             likes: Int(arc4random()) % 100000,
             imageUrl: "spider-man-1",
-            timestamp: Date(),
+            timestamp: Timestamp(),
             user: User.MOCK_USERS[3]
         ),
         .init(
@@ -62,7 +63,7 @@ extension Post {
             caption: "Your friendly Neighborhood!",
             likes: Int(arc4random()) % 100000,
             imageUrl: "spider-man-2",
-            timestamp: Date(),
+            timestamp: Timestamp(),
             user: User.MOCK_USERS[3]
         ),
         .init(
@@ -71,7 +72,7 @@ extension Post {
             caption: "I don't have an ordinary arrow. If I lose, I lose.",
             likes: Int(arc4random()) % 100000,
             imageUrl: "hawkeye-1",
-            timestamp: Date(),
+            timestamp: Timestamp(),
             user: User.MOCK_USERS[4]
         ),
         .init(
@@ -80,7 +81,7 @@ extension Post {
             caption: "You always excelled, but not because you crave success, but because of you fear of failure.",
             likes: Int(arc4random()) % 100000,
             imageUrl: "doctor-stranger-1",
-            timestamp: Date(),
+            timestamp: Timestamp(),
             user: User.MOCK_USERS[5]
         ),
         .init(
@@ -89,7 +90,7 @@ extension Post {
             caption: "Wakanda Forever",
             likes: Int(arc4random()) % 100000,
             imageUrl: "black-panther-1",
-            timestamp: Date(),
+            timestamp: Timestamp(),
             user: User.MOCK_USERS[6]
         ),
         .init(
@@ -98,7 +99,7 @@ extension Post {
             caption: "Don’t let your past determine the future.",
             likes: Int(arc4random()) % 100000,
             imageUrl: "ant-man-1",
-            timestamp: Date(),
+            timestamp: Timestamp(),
             user: User.MOCK_USERS[7]
         )
     ]
